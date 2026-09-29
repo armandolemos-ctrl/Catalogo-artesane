@@ -979,8 +979,8 @@
                 icon: "🔑", 
                 name: "Chaveiro de Nome Colorido", 
                 desc: "Placa em 2 cores vibrantes com corrente e argola de metal super resistente.", 
-                priceUnit: 12.0, 
-                priceBulk: 7.0, 
+                priceUnit: 9.0, 
+                priceBulk: 6.0, 
                 images: ["Imagens/01.jpg", "Imagens/01_2.jpg"] 
             },
             { 
@@ -989,7 +989,7 @@
                 icon: "🎲", 
                 name: "Chaveiro Jogo da Velha", 
                 desc: "Interativo com bloquinhos giratórios, diversão garantida na mochila.", 
-                priceUnit: 12.0, 
+                priceUnit: 9.0, 
                 priceBulk: 7.5, 
                 images: ["Imagens/02.jpg"] 
             },
@@ -1009,8 +1009,8 @@
                 icon: "🐙", 
                 name: "Chaveiro Polvo Articulado", 
                 desc: "Tentáculos móveis com alta flexibilidade e olhos em 2 cores destacadas.", 
-                priceUnit: 15.0, 
-                priceBulk: 9.5, 
+                priceUnit: 12.0, 
+                priceBulk: 8.0, 
                 images: ["Imagens/04.jpg"] 
             },
             { 
@@ -1018,13 +1018,14 @@
                 category: "Chaveiros", 
                 icon: "🐾", 
                 name: "Bichinhos Articulados & Colecionáveis", 
-                desc: "Miniaturas colecionáveis com articulação suave para pendurar ou brincar.", 
-                priceUnit: 10.0, 
-                priceBulk: 6.0, 
+                desc: "Aneis giratórios articuláveis.", 
+                priceUnit: 11.0, 
+                priceBulk: 8.0, 
                 images: ["Imagens/05.jpg", "Imagens/05_2.jpg"] 
             },
             { 
                 id: "06", 
+                hidden: true, 
                 category: "Chaveiros", 
                 icon: "🦫", 
                 name: "Chaveiro Capivara Fofinha", 
@@ -1073,24 +1074,26 @@
                 icon: "✏️", 
                 name: "Ponteira de Lápis Personalizada", 
                 desc: "Ponteira colorida em PLA resistente com encaixe perfeito para lápis e canetas.", 
-                priceUnit: 8.0, 
-                priceBulk: 5.0, 
+                priceUnit: 10.0, 
+                priceBulk: 6.0, 
                 images: ["Imagens/10.jpg", "Imagens/10_2.jpg", "Imagens/10_detalhe.jpg"] 
             },
 
             // TOPO DE CANETA E LÁPIS GIRATÓRIO
             { 
                 id: "11", 
+                hidden: true, 
                 category: "Topo de Caneta e Lápis Giratório tipo Fidget", 
                 icon: "🏷️", 
                 name: "Topo de Caneta e Lápis Giratório", 
                 desc: "Acessório decorativo e divertido para lápis/caneta, funciona como Fidget Toy giratório.", 
-                priceUnit: 12.0, 
+                priceUnit: 11.0, 
                 priceBulk: 7.0, 
                 images: ["Imagens/11.jpg", "Imagens/11_2.jpg"] 
             },
             { 
                 id: "12", 
+                hidden: true, 
                 category: "Tags Mochila", 
                 icon: "🌸", 
                 name: "Tag Florzinha com Nome", 
@@ -1125,7 +1128,7 @@
 
         // Configuração de Chips de Categoria
         function setupCategories() {
-            const categories = ["Todos", ...new Set(products.map(p => p.category))];
+            const categories = ["Todos", ...new Set(products.filter(p => !p.hidden).map(p => p.category))];
             const chipsContainer = document.getElementById("categoryChips");
             chipsContainer.innerHTML = "";
 
@@ -1156,6 +1159,7 @@
 
             // Filtro por categoria e busca
             const filteredProducts = products.filter(p => {
+                if (p.hidden) return false;
                 const matchCategory = (selectedCategory === "Todos") || (p.category === selectedCategory);
                 const matchSearch = p.name.toLowerCase().includes(searchQuery) || 
                                     p.desc.toLowerCase().includes(searchQuery) || 
