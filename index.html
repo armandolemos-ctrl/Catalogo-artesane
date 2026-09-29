@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artesane Personalizados - Dia das Crianças</title>
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --accent: #ec4899;
+            --bg: #fffbeb;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #fde68a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 90px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            text-align: center;
+            padding: 24px 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .notice {
+            background-color: #fef3c7;
+            color: #92400e;
+            text-align: center;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .category-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 20px 0 12px 0;
+            color: #b45309;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            background-color: #f3f4f6;
+        }
+
+        .card-body {
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .prices {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            background: #fffdf5;
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px dashed var(--border);
+        }
+
+        .price-unit {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .price-unit span {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .price-bulk {
+            font-size: 0.8rem;
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            background: #f3f4f6;
+            border: none;
+            width: 34px;
+            height: 34px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-input {
+            width: 44px;
+            height: 34px;
+            border: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .subtotal {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* Barra Inferior Fixa */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.08);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            z-index: 100;
+        }
+
+        .cart-summary {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-items {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .cart-total {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebd5a;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>✨ Artesane Personalizados ✨</h1>
+        <p>Catálogo Especial Dia das Crianças/Kit Escolar dias das Crianças 🎈</p>
+    </header>
+
+    <div class="notice">
+        💡 <strong>Preço de Atacado:</strong> Automático para 10 ou mais unidades do mesmo produto!
+    </div>
+
+    <div class="container" id="catalog-container"></div>
+
+    <div class="bottom-bar">
+        <div class="cart-summary">
+            <span class="cart-items" id="total-qty">0 itens selecionados</span>
+            <span class="cart-total" id="total-price">R$ 0,00</span>
+        </div>
+        <button class="btn-whatsapp" onclick="sendWhatsApp()">
+            Enviar Pedido 💬
+        </button>
+    </div>
+
+    <script>
+        // Substitua pelo número do seu WhatsApp com DDD (apenas números)
+        const WHATSAPP_PHONE = "5571999991942"; 
+
+        const products = [
+            // Chaveiros
+            { id: "01", category: "Chaveiros", icon: "🔑", name: "Chaveiro de Nome Colorido", desc: "Placa em 2 cores com corrente de metal", priceUnit: 10.0, priceBulk: 6.0, img: "01.jpg" },
+            { id: "02", category: "Chaveiros", icon: "🎲", name: "Chaveiro Jogo da Velha", desc: "Interativo com bloquinhos giratórios", priceUnit: 12.0, priceBulk: 7.5, img: "02.jpg" },
+            { id: "03", category: "Chaveiros", icon: "🦖", name: "Chaveiro Dino Esqueleto", desc: "Articulado flexível estilo fidget toy", priceUnit: 12.0, priceBulk: 8.0, img: "03.jpg" },
+            { id: "04", category: "Chaveiros", icon: "🐙", name: "Chaveiro Polvo Articulado", desc: "Tentáculos móveis e olhos em 2 cores", priceUnit: 15.0, priceBulk: 9.0, img: "04.jpg" },
+            { id: "05", category: "Chaveiros", icon: "🐾", name: "Mini Bichinhos Articulados", desc: "Miniaturas colecionáveis flexíveis", priceUnit: 8.0, priceBulk: 5.0, img: "05.jpg" },
+            { id: "06", category: "Chaveiros", icon: "🦫", name: "Chaveiro Capivara Fofinha", desc: "Modelo temático colorido com acessório", priceUnit: 12.0, priceBulk: 7.5, img: "06.jpg" },
+
+            // Marcadores
+            { id: "07", category: "Marcadores", icon: "✏️", name: "Marca-Página Clipe Lápis", desc: "Clipe gigante divertido para cadernos", priceUnit: 8.0, priceBulk: 5.0, img: "07.jpg" },
+            { id: "08", category: "Marcadores", icon: "🐱", name: "Marca-Página Gatinho", desc: "Marcador com silhueta de gatinho", priceUnit: 7.0, priceBulk: 4.5, img: "08.jpg" },
+            { id: "09", category: "Marcadores", icon: "📖", name: "Marca-Página Livro Aberto", desc: "Marcador vazado em formato de livro", priceUnit: 8.0, priceBulk: 5.0, img: "09.jpg" },
+
+            // Acessórios
+            { id: "10", category: "Acessórios", icon: "✏️", name: "Ponteira de Lápis Personalizada", desc: "Ponteira em PLA com nome ou inicial", priceUnit: 7.0, priceBulk: 4.0, img: "10.jpg" },
+
+            // Tags Mochila
+            { id: "11", category: "Tags Mochila", icon: "🏷️", name: "Tag / Identificador Retangular", desc: "Placa rígida com nome e telefone", priceUnit: 12.0, priceBulk: 7.0, img: "11.jpg" },
+            { id: "12", category: "Tags Mochila", icon: "🌸", name: "Tag Florzinha com Nome", desc: "Identificador em formato de flor", priceUnit: 10.0, priceBulk: 6.0, img: "12.jpg" },
+            { id: "13", category: "Tags Mochila", icon: "⚽", name: "Tag Futebol com Nome", desc: "Plaqueta com bola e nome em relevo", priceUnit: 10.0, priceBulk: 6.0, img: "13.jpg" }
+        ];
+
+        const quantities = {};
+
+        function renderCatalog() {
+            const container = document.getElementById("catalog-container");
+            const categories = [...new Set(products.map(p => p.category))];
+
+            container.innerHTML = "";
+
+            categories.forEach(cat => {
+                const catTitle = document.createElement("div");
+                catTitle.className = "category-title";
+                catTitle.innerHTML = `<span>📌</span> ${cat}`;
+                container.appendChild(catTitle);
+
+                const grid = document.createElement("div");
+                grid.className = "grid";
+
+                products.filter(p => p.category === cat).forEach(prod => {
+                    quantities[prod.id] = 0;
+
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.innerHTML = `
+                        <img src="${prod.img}" alt="${prod.name}" class="card-img" onerror="this.src='https://placehold.co/400x300/fef3c7/b45309?text=Item+${prod.id}'">
+                        <div class="card-body">
+                            <div class="card-title">${prod.icon} ${prod.id} - ${prod.name}</div>
+                            <div class="card-desc">${prod.desc}</div>
+                            <div class="prices">
+                                <span class="price-unit">Avulso: <span>R$ ${prod.priceUnit.toFixed(2).replace('.', ',')}</span></span>
+                                <span class="price-bulk">10+ unid: R$ ${prod.priceBulk.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                            <div class="controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="updateQty('${prod.id}', -1)">-</button>
+                                    <input type="number" readonly class="qty-input" id="qty-${prod.id}" value="0">
+                                    <button class="qty-btn" onclick="updateQty('${prod.id}', 1)">+</button>
+                                </div>
+                                <div class="subtotal" id="subtotal-${prod.id}">R$ 0,00</div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                container.appendChild(grid);
+            });
+        }
+
+        function updateQty(id, delta) {
+            const current = quantities[id] || 0;
+            const updated = Math.max(0, current + delta);
+            quantities[id] = updated;
+
+            document.getElementById(`qty-${id}`).value = updated;
+            
+            const prod = products.find(p => p.id === id);
+            const price = updated >= 10 ? prod.priceBulk : prod.priceUnit;
+            const subtotal = updated * price;
+
+            document.getElementById(`subtotal-${id}`).innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            products.forEach(prod => {
+                const qty = quantities[prod.id] || 0;
+                if (qty > 0) {
+                    totalItems += qty;
+                    const price = qty >= 10 ? prod.priceBulk : prod.priceUnit;
+                    totalPrice += qty * price;
+                }
+            });
+
+            document.getElementById("total-qty").innerText = `${totalItems} itens selecionados`;
+            document.getElementById("total-price").innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+        }
+
+        function sendWhatsApp() {
+            let message = "*Olá, Artesane Personalizados! Gostaria de fazer um pedido:*%0A%0A";
+            let hasItems = false;
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            products.forEach(prod => {
+                const qty = quantities[prod.id] || 0;
+                if (qty > 0) {
+                    hasItems = true;
+                    totalItems += qty;
+                    const price = qty >= 10 ? prod.priceBulk : prod.priceUnit;
+                    const subtotal = qty * price;
+                    totalPrice += subtotal;
+
+                    const type = qty >= 10 ? "(Atacado)" : "(Avulso)";
+                    message += `• *[${prod.id}] ${prod.name}*%0A   Qtd: ${qty}x R$ ${price.toFixed(2).replace('.', ',')} = R$ ${subtotal.toFixed(2).replace('.', ',')} ${type}%0A%0A`;
+                }
+            });
+
+            if (!hasItems) {
+                alert("Por favor, selecione pelo menos 1 item antes de enviar o pedido.");
+                return;
+            }
+
+            message += `-----------------------------------%0A`;
+            message += `*Total de Peças:* ${totalItems}%0A`;
+            message += `*Valor Estimado:* R$ ${totalPrice.toFixed(2).replace('.', ',')}%0A%0A`;
+            message += `Poderia me confirmar o prazo de entrega e as opções de personalização?`;
+
+            const link = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
+            window.open(link, "_blank");
+        }
+
+        renderCatalog();
+    </script>
+</body>
+</html>
