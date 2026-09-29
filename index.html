@@ -3,333 +3,1198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artesane Personalizados - Dia das Crianças</title>
+    <title>Artesane 3D - Catálogo & Pedidos</title>
+    <meta name="description" content="Catálogo interativo de produtos personalizados da Artesane 3D. Selecione seus itens e envie o pedido diretamente pelo WhatsApp!">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #f59e0b;
-            --primary-dark: #d97706;
-            --accent: #ec4899;
-            --bg: #fffbeb;
+            --primary: #10b981;          /* Esmeralda suave */
+            --primary-dark: #059669;      /* Esmeralda profundo */
+            --primary-light: #d1fae5;     /* Verde mint bem claro */
+            --accent: #f472b6;            /* Rosa suave */
+            --accent-dark: #db2777;       /* Rosa mais forte */
+            --accent-gradient: linear-gradient(135deg, #34d399 0%, #10b981 45%, #f472b6 100%);
+            --whatsapp: #25d366;
+            --whatsapp-dark: #1fb855;
+            
+            --bg-body: #f4fdf8;           /* Fundo levemente esverdeado */
             --card-bg: #ffffff;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --border: #fde68a;
+            --text-main: #0f2e22;         /* Verde-escuro quase preto */
+            --text-muted: #4b6f5e;        /* Verde acinzentado */
+            --text-sub: #8fb3a0;          /* Verde claro para textos secundários */
+            --border-color: #d1e9dc;      /* Borda verde-claro */
+            --border-focus: #10b981;
+            --badge-bg: #ecfdf5;
+            --badge-text: #059669;
+            --shadow-sm: 0 1px 3px rgba(16, 185, 129, 0.07);
+            --shadow-md: 0 8px 20px -4px rgba(16, 185, 129, 0.1), 0 4px 8px -2px rgba(0,0,0,0.04);
+            --shadow-lg: 0 16px 32px -6px rgba(16, 185, 129, 0.12), 0 8px 16px -4px rgba(0,0,0,0.06);
+            --shadow-float: 0 12px 30px rgba(16, 185, 129, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding-bottom: 90px;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding-bottom: 120px;
+            min-height: 100vh;
         }
 
+        /* Top Header */
         header {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background: var(--accent-gradient);
             color: white;
+            padding: 36px 20px 28px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.22);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 220px;
+            height: 220px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -60px;
+            left: -40px;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header-content {
+            max-width: 960px;
+            margin: 0 auto;
             text-align: center;
-            padding: 24px 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
         }
 
         header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         header p {
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             opacity: 0.95;
-        }
-
-        .notice {
-            background-color: #fef3c7;
-            color: #92400e;
-            text-align: center;
-            font-size: 0.85rem;
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .container {
-            max-width: 900px;
+            font-weight: 500;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 16px;
         }
 
-        .category-title {
-            font-size: 1.15rem;
+        /* Wholesale Notice Banner */
+        .notice-banner {
+            background: linear-gradient(90deg, #f0fdf4, #dcfce7);
+            border-bottom: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .notice-banner strong {
+            color: #15803d;
             font-weight: 700;
-            margin: 20px 0 12px 0;
-            color: #b45309;
+        }
+
+        .notice-pill {
+            background: linear-gradient(135deg, #10b981, #f472b6);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* Filter & Search Bar */
+        .toolbar {
+            background: white;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            font-size: 0.95rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            outline: none;
+            background: #f8fafc;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            background: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-sub);
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        .category-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+        }
+
+        .category-chips::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chip {
+            background: #f0fdf4;
+            color: var(--text-muted);
+            border: 1px solid #bbf7d0;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .chip:hover {
+            background: #dcfce7;
+            color: var(--primary-dark);
+            border-color: #86efac;
+        }
+
+        .chip.active {
+            background: linear-gradient(135deg, #10b981, #f472b6);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Section Headings */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 28px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #bbf7d0;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
+        .section-count {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            font-weight: 600;
         }
 
+        /* Products Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Product Card */
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: #86efac;
+        }
+
+        .card.has-selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1.5px var(--primary), var(--shadow-md);
+        }
+
+        /* Multi-Image Gallery Container */
+        .card-media {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #f1f5f9;
+            overflow: hidden;
+            cursor: pointer;
         }
 
         .card-img {
             width: 100%;
-            height: 190px;
+            height: 100%;
             object-fit: cover;
-            background-color: #f3f4f6;
+            transition: transform 0.4s ease, opacity 0.25s ease;
+            display: block;
         }
 
+        .card-media:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        /* Gallery Indicators & Arrows */
+        .gallery-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .zoom-hint {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            z-index: 3;
+            opacity: 0.85;
+            transition: var(--transition);
+        }
+
+        .card-media:hover .zoom-hint {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: #0f172a;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+            z-index: 4;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover .gallery-nav,
+        .card-media:hover .gallery-nav {
+            opacity: 0.95;
+        }
+
+        .gallery-nav:hover {
+            opacity: 1;
+            background: #fff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-prev { left: 8px; }
+        .gallery-next { right: 8px; }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.55);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: #ffffff;
+            width: 18px;
+            border-radius: 999px;
+        }
+
+        /* Card Content */
         .card-body {
-            padding: 12px 14px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
+        .card-header-info {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .card-code {
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: #fdf2f8;
+            color: var(--accent-dark);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
         .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.35;
         }
 
         .card-desc {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.45;
             flex-grow: 1;
         }
 
+        /* Pricing Card */
         .prices {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: baseline;
-            background: #fffdf5;
-            padding: 8px 10px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border: 1px dashed var(--border);
+            background: #f0fdf8;
+            border: 1px dashed #6ee7b7;
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            margin-bottom: 14px;
         }
 
-        .price-unit {
-            font-size: 0.8rem;
-            color: var(--text-light);
+        .price-box {
+            display: flex;
+            flex-direction: column;
         }
 
-        .price-unit span {
+        .price-label {
+            font-size: 0.7rem;
             font-weight: 600;
-            color: var(--text);
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .price-bulk {
-            font-size: 0.8rem;
-            color: #059669;
+        .price-value {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .price-bulk-tag {
+            text-align: right;
+        }
+
+        .price-bulk-val {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--badge-text);
+        }
+
+        .price-bulk-note {
+            font-size: 0.7rem;
             font-weight: 700;
+            color: var(--accent-dark);
+            background: #fdf2f8;
+            padding: 1px 6px;
+            border-radius: 4px;
         }
 
+        /* Product Controls */
         .controls {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #dcfce7;
         }
 
         .qty-selector {
             display: flex;
             align-items: center;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            overflow: hidden;
+            background: #f0fdf4;
+            border-radius: 10px;
+            padding: 3px;
         }
 
         .qty-btn {
-            background: #f3f4f6;
+            background: #ffffff;
             border: none;
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+            transition: var(--transition);
+        }
+
+        .qty-btn:active {
+            transform: scale(0.92);
         }
 
         .qty-input {
             width: 44px;
-            height: 34px;
             border: none;
+            background: transparent;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.95rem;
+            color: #0f172a;
+            outline: none;
         }
 
-        .subtotal {
-            font-size: 0.9rem;
-            font-weight: 700;
+        .subtotal-box {
+            text-align: right;
+        }
+
+        .subtotal-label {
+            font-size: 0.7rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .subtotal-val {
+            font-size: 0.95rem;
+            font-weight: 800;
             color: var(--primary-dark);
         }
 
-        /* Barra Inferior Fixa */
-        .bottom-bar {
+        /* Fixed Bottom Checkout Bar */
+        .bottom-bar-wrapper {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: #ffffff;
-            border-top: 1px solid #e5e7eb;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.08);
-            padding: 12px 16px;
+            z-index: 100;
+            padding: 12px 16px 16px;
+            background: linear-gradient(180deg, rgba(244, 253, 248, 0) 0%, rgba(244, 253, 248, 0.9) 30%, rgba(244, 253, 248, 1) 100%);
+            pointer-events: none;
+        }
+
+        .bottom-bar {
+            max-width: 980px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(187, 247, 208, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 14px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 900px;
-            margin: 0 auto;
-            z-index: 100;
+            gap: 16px;
+            box-shadow: var(--shadow-lg);
+            pointer-events: auto;
         }
 
-        .cart-summary {
+        .cart-info {
             display: flex;
             flex-direction: column;
         }
 
-        .cart-items {
-            font-size: 0.8rem;
-            color: var(--text-light);
+        .cart-badge {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cart-total-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .cart-total-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
         }
 
         .cart-total {
-            font-size: 1.25rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.45rem;
             font-weight: 800;
-            color: #111827;
+            color: var(--primary-dark);
         }
 
         .btn-whatsapp {
-            background-color: #25d366;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 10px 18px;
-            font-size: 0.95rem;
+            border-radius: var(--radius-md);
+            padding: 14px 24px;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 10px;
             text-decoration: none;
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+            transition: var(--transition);
+            white-space: nowrap;
         }
 
         .btn-whatsapp:hover {
-            background-color: #1ebd5a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+        }
+
+        .btn-whatsapp:active {
+            transform: scale(0.97);
+        }
+
+        .btn-whatsapp svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* Modal Lightbox for Images */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            position: relative;
+            max-width: 720px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .modal-close {
+            background: #f1f5f9;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+        }
+
+        .modal-media-wrap {
+            position: relative;
+            background: #0b1120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 320px;
+            max-height: 60vh;
+            overflow: hidden;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            color: #0f172a;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: var(--transition);
+        }
+
+        .modal-nav:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .modal-prev { left: 16px; }
+        .modal-next { right: 16px; }
+
+        .modal-footer {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-thumbnails {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            max-width: 80%;
+            padding: 4px 0;
+        }
+
+        .modal-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.65;
+            transition: var(--transition);
+        }
+
+        .modal-thumb.active {
+            border-color: var(--primary);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Floating Order Notification */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Mobile Styles */
+        @media (max-width: 640px) {
+            header {
+                padding: 26px 16px 20px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 14px 12px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .gallery-nav {
+                opacity: 0.85; /* always visible on touch */
+            }
+
+            .bottom-bar {
+                padding: 12px 14px;
+            }
+
+            .cart-total {
+                font-size: 1.25rem;
+            }
+
+            .btn-whatsapp {
+                padding: 12px 18px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header Section -->
     <header>
-        <h1>✨ Artesane Personalizados ✨</h1>
-        <p>Catálogo Especial Dia das Crianças/Kit Escolar dias das Crianças 🎈</p>
+        <div class="header-content">
+            <div class="brand-badge">✨ Catálogo Digital & Atacado</div>
+            <h1>Artesane 3D Personalizados</h1>
+            <p>Escolha seus produtos favoritos, personalize quantidades e envie seu pedido completo diretamente para nosso WhatsApp! 🎈</p>
+        </div>
     </header>
 
-    <div class="notice">
-        💡 <strong>Preço de Atacado:</strong> Automático para 10 ou mais unidades do mesmo produto!
+    <!-- Wholesale Advantage Banner -->
+    <div class="notice-banner">
+        <span class="notice-pill">Super Vantagem</span>
+        <span>🔥 <strong>Preço de Atacado:</strong> Desconto automático a partir de <strong>10 unidades</strong> do mesmo produto!</span>
     </div>
 
-    <div class="container" id="catalog-container"></div>
-
-    <div class="bottom-bar">
-        <div class="cart-summary">
-            <span class="cart-items" id="total-qty">0 itens selecionados</span>
-            <span class="cart-total" id="total-price">R$ 0,00</span>
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Search and Filter Toolbar -->
+        <div class="toolbar">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Buscar produto ou código..." oninput="handleSearch()">
+            </div>
+            <div class="category-chips" id="categoryChips">
+                <!-- Injected via JS -->
+            </div>
         </div>
-        <button class="btn-whatsapp" onclick="sendWhatsApp()">
-            Enviar Pedido 💬
-        </button>
+
+        <!-- Catalog Container -->
+        <div id="catalog-container"></div>
+    </div>
+
+    <!-- Floating Sticky Order Bottom Bar -->
+    <div class="bottom-bar-wrapper">
+        <div class="bottom-bar">
+            <div class="cart-info">
+                <span class="cart-badge" id="total-qty">📦 0 itens selecionados</span>
+                <div class="cart-total-wrap">
+                    <span class="cart-total-label">Total:</span>
+                    <span class="cart-total" id="total-price">R$ 0,00</span>
+                </div>
+            </div>
+            <button class="btn-whatsapp" id="whatsappButton" onclick="sendWhatsApp()">
+                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.861.174.086.275.073.376-.044.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.761.458 3.418 1.258 4.867l-1.297 4.733 4.86-1.274c1.402.766 3.003 1.194 4.699 1.194 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/></svg>
+                Enviar Pedido
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Lightbox (Carousel de Imagens) -->
+    <div class="modal" id="imageModal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-container">
+            <div class="modal-header">
+                <span class="modal-title" id="modalProductTitle">Nome do Produto</span>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-media-wrap">
+                <button class="modal-nav modal-prev" onclick="prevModalImage()">❮</button>
+                <img id="modalImage" class="modal-img" src="" alt="Foto detalhada">
+                <button class="modal-nav modal-next" onclick="nextModalImage()">❯</button>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-thumbnails" id="modalThumbnails">
+                    <!-- Gerado dinamicamente -->
+                </div>
+                <span id="modalCounter" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">1 / 1</span>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Substitua pelo número do seu WhatsApp com DDD (apenas números)
+        // Configuração de WhatsApp
         const WHATSAPP_PHONE = "5571999991942"; 
 
+        /**
+         * Catálogo de Produtos
+         * ATENÇÃO: A propriedade 'images' é um array! Você pode colocar 1, 2, 3 ou mais fotos por produto.
+         * Para colocar mais fotos, basta colocar o nome do arquivo, ex: images: ["01.jpg", "01_2.jpg", "01_detalhe.jpg"]
+         * Como os arquivos ficam no mesmo diretório do repositório Git, o caminho relativo funciona perfeitamente!
+         */
         const products = [
-            // Chaveiros
-            { id: "01", category: "Chaveiros", icon: "🔑", name: "Chaveiro de Nome Colorido", desc: "Placa em 2 cores com corrente de metal", priceUnit: 10.0, priceBulk: 6.0, img: "01.jpg" },
-            { id: "02", category: "Chaveiros", icon: "🎲", name: "Chaveiro Jogo da Velha", desc: "Interativo com bloquinhos giratórios", priceUnit: 12.0, priceBulk: 7.5, img: "02.jpg" },
-            { id: "03", category: "Chaveiros", icon: "🦖", name: "Chaveiro Dino Esqueleto", desc: "Articulado flexível estilo fidget toy", priceUnit: 12.0, priceBulk: 8.0, img: "03.jpg" },
-            { id: "04", category: "Chaveiros", icon: "🐙", name: "Chaveiro Polvo Articulado", desc: "Tentáculos móveis e olhos em 2 cores", priceUnit: 15.0, priceBulk: 9.0, img: "04.jpg" },
-            { id: "05", category: "Chaveiros", icon: "🐾", name: "Mini Bichinhos Articulados", desc: "Miniaturas colecionáveis flexíveis", priceUnit: 8.0, priceBulk: 5.0, img: "05.jpg" },
-            { id: "06", category: "Chaveiros", icon: "🦫", name: "Chaveiro Capivara Fofinha", desc: "Modelo temático colorido com acessório", priceUnit: 12.0, priceBulk: 7.5, img: "06.jpg" },
+            // CHAVEIROS
+            { 
+                id: "01", 
+                category: "Chaveiros", 
+                icon: "🔑", 
+                name: "Chaveiro de Nome Colorido", 
+                desc: "Placa em 2 cores vibrantes com corrente e argola de metal super resistente.", 
+                priceUnit: 10.0, 
+                priceBulk: 6.0, 
+                images: ["Imagens/01.jpg", "Imagens/01_2.jpg"] 
+            },
+            { 
+                id: "02", 
+                category: "Chaveiros", 
+                icon: "🎲", 
+                name: "Chaveiro Jogo da Velha", 
+                desc: "Interativo com bloquinhos giratórios, diversão garantida na mochila.", 
+                priceUnit: 12.0, 
+                priceBulk: 7.5, 
+                images: ["Imagens/02.jpg"] 
+            },
+            { 
+                id: "03", 
+                category: "Chaveiros", 
+                icon: "🦖", 
+                name: "Chaveiro Dino Esqueleto", 
+                desc: "Articulado e flexível estilo fidget toy. Excelente acabamento 3D.", 
+                priceUnit: 12.0, 
+                priceBulk: 8.0, 
+                images: ["Imagens/03.jpg"] 
+            },
+            { 
+                id: "04", 
+                category: "Chaveiros", 
+                icon: "🐙", 
+                name: "Chaveiro Polvo Articulado", 
+                desc: "Tentáculos móveis com alta flexibilidade e olhos em 2 cores destacadas.", 
+                priceUnit: 15.0, 
+                priceBulk: 9.0, 
+                images: ["Imagens/04.jpg"] 
+            },
+            { 
+                id: "05", 
+                category: "Chaveiros", 
+                icon: "🐾", 
+                name: "Bichinhos Articulados & Colecionáveis", 
+                desc: "Miniaturas colecionáveis com articulação suave para pendurar ou brincar.", 
+                priceUnit: 8.0, 
+                priceBulk: 5.0, 
+                images: ["Imagens/05.jpg", "Imagens/05_2.jpg"] 
+            },
+            { 
+                id: "06", 
+                category: "Chaveiros", 
+                icon: "🦫", 
+                name: "Chaveiro Capivara Fofinha", 
+                desc: "Modelo temático hiper simpático com acessório laranja na cabeça.", 
+                priceUnit: 12.0, 
+                priceBulk: 7.5, 
+                images: ["Imagens/06.jpg"] 
+            },
 
-            // Marcadores
-            { id: "07", category: "Marcadores", icon: "✏️", name: "Marca-Página Clipe Lápis", desc: "Clipe gigante divertido para cadernos", priceUnit: 8.0, priceBulk: 5.0, img: "07.jpg" },
-            { id: "08", category: "Marcadores", icon: "🐱", name: "Marca-Página Gatinho", desc: "Marcador com silhueta de gatinho", priceUnit: 7.0, priceBulk: 4.5, img: "08.jpg" },
-            { id: "09", category: "Marcadores", icon: "📖", name: "Marca-Página Livro Aberto", desc: "Marcador vazado em formato de livro", priceUnit: 8.0, priceBulk: 5.0, img: "09.jpg" },
+            // MARCADORES DE PÁGINA
+            { 
+                id: "07", 
+                category: "Marcadores", 
+                icon: "✏️", 
+                name: "Marca-Página Clipe Lápis", 
+                desc: "Clipe gigante e divertido para cadernos, livros e planners.", 
+                priceUnit: 8.0, 
+                priceBulk: 5.0, 
+                images: ["Imagens/07.jpg"] 
+            },
+            { 
+                id: "08", 
+                category: "Marcadores", 
+                icon: "🐱", 
+                name: "Marca-Página Gatinho", 
+                desc: "Marcador com silhueta delicada de gatinho apoiado na página.", 
+                priceUnit: 7.0, 
+                priceBulk: 4.5, 
+                images: ["Imagens/08.jpg"] 
+            },
+            { 
+                id: "09", 
+                category: "Marcadores", 
+                icon: "📖", 
+                name: "Marca-Página Livro Aberto", 
+                desc: "Design geométrico vazado em formato de livro com suporte ergonômico.", 
+                priceUnit: 8.0, 
+                priceBulk: 5.0, 
+                images: ["Imagens/09.jpg"] 
+            },
 
-            // Acessórios
-            { id: "10", category: "Acessórios", icon: "✏️", name: "Ponteira de Lápis Personalizada", desc: "Ponteira em PLA com nome ou inicial", priceUnit: 7.0, priceBulk: 4.0, img: "10.jpg" },
+            // ACESSÓRIOS
+            { 
+                id: "10", 
+                category: "Acessórios", 
+                icon: "✏️", 
+                name: "Ponteira de Lápis Personalizada", 
+                desc: "Ponteira colorida em PLA resistente com encaixe perfeito para lápis e canetas.", 
+                priceUnit: 7.0, 
+                priceBulk: 4.0, 
+                images: ["Imagens/10.jpg", "Imagens/10_2.jpg", "Imagens/10_detalhe.jpg"] 
+            },
 
-            // Tags Mochila
-            { id: "11", category: "Tags Mochila", icon: "🏷️", name: "Tag / Identificador Retangular", desc: "Placa rígida com nome e telefone", priceUnit: 12.0, priceBulk: 7.0, img: "11.jpg" },
-            { id: "12", category: "Tags Mochila", icon: "🌸", name: "Tag Florzinha com Nome", desc: "Identificador em formato de flor", priceUnit: 10.0, priceBulk: 6.0, img: "12.jpg" },
-            { id: "13", category: "Tags Mochila", icon: "⚽", name: "Tag Futebol com Nome", desc: "Plaqueta com bola e nome em relevo", priceUnit: 10.0, priceBulk: 6.0, img: "13.jpg" }
+            // TAGS PARA MOCHILAS & LANCHEIRAS
+            { 
+                id: "11", 
+                category: "Tags Mochila", 
+                icon: "🏷️", 
+                name: "Tag / Identificador Retangular", 
+                desc: "Placa rígida durável com nome do aluno e telefone de contato gravados em relevo.", 
+                priceUnit: 12.0, 
+                priceBulk: 7.0, 
+                images: ["Imagens/11.jpg"] 
+            },
+            { 
+                id: "12", 
+                category: "Tags Mochila", 
+                icon: "🌸", 
+                name: "Tag Florzinha com Nome", 
+                desc: "Identificador gracioso em formato de flor com letras personalizadas.", 
+                priceUnit: 10.0, 
+                priceBulk: 6.0, 
+                images: ["Imagens/12.jpg"] 
+            },
+            { 
+                id: "13", 
+                category: "Tags Mochila", 
+                icon: "⚽", 
+                name: "Tag Futebol com Nome", 
+                desc: "Plaqueta temática bola de futebol com relevo esportivo e nome do aluno.", 
+                priceUnit: 10.0, 
+                priceBulk: 6.0, 
+                images: ["Imagens/13.jpg"] 
+            }
         ];
 
+        // Estado da aplicação
         const quantities = {};
+        const activeImageIndex = {}; // rastreia a foto ativa de cada card
+        let selectedCategory = "Todos";
+        let searchQuery = "";
 
-        function renderCatalog() {
-            const container = document.getElementById("catalog-container");
-            const categories = [...new Set(products.map(p => p.category))];
+        // Inicializar quantidades
+        products.forEach(p => {
+            quantities[p.id] = 0;
+            activeImageIndex[p.id] = 0;
+        });
 
-            container.innerHTML = "";
+        // Configuração de Chips de Categoria
+        function setupCategories() {
+            const categories = ["Todos", ...new Set(products.map(p => p.category))];
+            const chipsContainer = document.getElementById("categoryChips");
+            chipsContainer.innerHTML = "";
 
             categories.forEach(cat => {
-                const catTitle = document.createElement("div");
-                catTitle.className = "category-title";
-                catTitle.innerHTML = `<span>📌</span> ${cat}`;
-                container.appendChild(catTitle);
+                const btn = document.createElement("button");
+                btn.className = `chip ${cat === selectedCategory ? 'active' : ''}`;
+                btn.innerText = cat;
+                btn.onclick = () => {
+                    selectedCategory = cat;
+                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderCatalog();
+                };
+                chipsContainer.appendChild(btn);
+            });
+        }
+
+        // Busca
+        function handleSearch() {
+            searchQuery = document.getElementById("searchInput").value.trim().toLowerCase();
+            renderCatalog();
+        }
+
+        // Renderização do Catálogo
+        function renderCatalog() {
+            const container = document.getElementById("catalog-container");
+            container.innerHTML = "";
+
+            // Filtro por categoria e busca
+            const filteredProducts = products.filter(p => {
+                const matchCategory = (selectedCategory === "Todos") || (p.category === selectedCategory);
+                const matchSearch = p.name.toLowerCase().includes(searchQuery) || 
+                                    p.desc.toLowerCase().includes(searchQuery) || 
+                                    p.id.includes(searchQuery);
+                return matchCategory && matchSearch;
+            });
+
+            if (filteredProducts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <span>🔍</span>
+                        <h3>Nenhum produto encontrado</h3>
+                        <p>Tente buscar com outros termos ou selecione outra categoria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Agrupar por categorias
+            const currentCategories = [...new Set(filteredProducts.map(p => p.category))];
+
+            currentCategories.forEach(cat => {
+                const prodsInCat = filteredProducts.filter(p => p.category === cat);
+
+                const sectionHeader = document.createElement("div");
+                sectionHeader.className = "section-header";
+                sectionHeader.innerHTML = `
+                    <div class="section-title">
+                        <span>${prodsInCat[0]?.icon || "🏷️"}</span> ${cat}
+                    </div>
+                    <span class="section-count">${prodsInCat.length} ${prodsInCat.length === 1 ? 'item' : 'itens'}</span>
+                `;
+                container.appendChild(sectionHeader);
 
                 const grid = document.createElement("div");
                 grid.className = "grid";
 
-                products.filter(p => p.category === cat).forEach(prod => {
-                    quantities[prod.id] = 0;
-
-                    const card = document.createElement("div");
-                    card.className = "card";
-                    card.innerHTML = `
-                        <img src="${prod.img}" alt="${prod.name}" class="card-img" onerror="this.src='https://placehold.co/400x300/fef3c7/b45309?text=Item+${prod.id}'">
-                        <div class="card-body">
-                            <div class="card-title">${prod.icon} ${prod.id} - ${prod.name}</div>
-                            <div class="card-desc">${prod.desc}</div>
-                            <div class="prices">
-                                <span class="price-unit">Avulso: <span>R$ ${prod.priceUnit.toFixed(2).replace('.', ',')}</span></span>
-                                <span class="price-bulk">10+ unid: R$ ${prod.priceBulk.toFixed(2).replace('.', ',')}</span>
-                            </div>
-                            <div class="controls">
-                                <div class="qty-selector">
-                                    <button class="qty-btn" onclick="updateQty('${prod.id}', -1)">-</button>
-                                    <input type="number" readonly class="qty-input" id="qty-${prod.id}" value="0">
-                                    <button class="qty-btn" onclick="updateQty('${prod.id}', 1)">+</button>
-                                </div>
-                                <div class="subtotal" id="subtotal-${prod.id}">R$ 0,00</div>
-                            </div>
-                        </div>
-                    `;
+                prodsInCat.forEach(prod => {
+                    const card = createProductCard(prod);
                     grid.appendChild(card);
                 });
 
@@ -337,22 +1202,142 @@
             });
         }
 
+        // Criação de Card de Produto com Galeria de Imagens
+        function createProductCard(prod) {
+            const card = document.createElement("div");
+            card.className = `card ${quantities[prod.id] > 0 ? 'has-selected' : ''}`;
+            card.id = `card-${prod.id}`;
+
+            const imgs = prod.images && prod.images.length > 0 ? prod.images : [`Imagens/${prod.id}.jpg`];
+            const currentIdx = activeImageIndex[prod.id] || 0;
+            const currentImg = imgs[currentIdx];
+            const totalImgs = imgs.length;
+
+            // Galeria HTML (Suporte a múltiplas fotos)
+            let galleryHtml = `
+                <div class="card-media" onclick="openModal('${prod.id}')">
+                    <span class="zoom-hint" title="Clique para ampliar">🔍</span>
+                    ${totalImgs > 1 ? `<span class="gallery-counter">📷 ${currentIdx + 1}/${totalImgs}</span>` : ''}
+                    <img id="img-${prod.id}" src="${currentImg}" alt="${prod.name}" class="card-img" 
+                         onerror="this.src='https://placehold.co/400x300/fef3c7/b45309?text=Item+${prod.id}'">
+            `;
+
+            // Botões anterior/próximo se tiver mais de 1 foto
+            if (totalImgs > 1) {
+                galleryHtml += `
+                    <button class="gallery-nav gallery-prev" onclick="changeImage('${prod.id}', -1, event)" aria-label="Foto anterior">❮</button>
+                    <button class="gallery-nav gallery-next" onclick="changeImage('${prod.id}', 1, event)" aria-label="Próxima foto">❯</button>
+                    <div class="gallery-dots">
+                        ${imgs.map((_, i) => `<span class="dot ${i === currentIdx ? 'active' : ''}" id="dot-${prod.id}-${i}"></span>`).join('')}
+                    </div>
+                `;
+            }
+
+            galleryHtml += `</div>`;
+
+            // Formatação de Preços
+            const currentQty = quantities[prod.id] || 0;
+            const price = currentQty >= 10 ? prod.priceBulk : prod.priceUnit;
+            const subtotal = currentQty * price;
+
+            card.innerHTML = `
+                ${galleryHtml}
+                <div class="card-body">
+                    <div class="card-header-info">
+                        <h3 class="card-title">${prod.name}</h3>
+                        <span class="card-code">#${prod.id}</span>
+                    </div>
+                    <div class="card-desc">${prod.desc}</div>
+                    
+                    <div class="prices">
+                        <div class="price-box">
+                            <span class="price-label">Varejo</span>
+                            <span class="price-value">R$ ${prod.priceUnit.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <div class="price-box price-bulk-tag">
+                            <span class="price-bulk-note">10+ unidades</span>
+                            <span class="price-bulk-val">R$ ${prod.priceBulk.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="updateQty('${prod.id}', -1)" aria-label="Diminuir">-</button>
+                            <input type="number" readonly class="qty-input" id="qty-${prod.id}" value="${currentQty}">
+                            <button class="qty-btn" onclick="updateQty('${prod.id}', 1)" aria-label="Aumentar">+</button>
+                        </div>
+                        <div class="subtotal-box">
+                            <div class="subtotal-label">Subtotal</div>
+                            <div class="subtotal-val" id="subtotal-${prod.id}">R$ ${subtotal.toFixed(2).replace('.', ',')}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Navegação de fotos no Card
+        function changeImage(prodId, delta, event) {
+            if (event) event.stopPropagation(); // Evita abrir o modal ao clicar na seta
+            const prod = products.find(p => p.id === prodId);
+            if (!prod) return;
+
+            const imgs = prod.images && prod.images.length > 0 ? prod.images : [`${prod.id}.jpg`];
+            let current = activeImageIndex[prodId] || 0;
+            current = (current + delta + imgs.length) % imgs.length;
+            activeImageIndex[prodId] = current;
+
+            const imgEl = document.getElementById(`img-${prodId}`);
+            if (imgEl) {
+                imgEl.src = imgs[current];
+            }
+
+            // Atualizar dots
+            imgs.forEach((_, i) => {
+                const dot = document.getElementById(`dot-${prodId}-${i}`);
+                if (dot) {
+                    if (i === current) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                }
+            });
+
+            // Atualizar contador no card se existir
+            const cardMedia = imgEl?.closest('.card-media');
+            const counter = cardMedia?.querySelector('.gallery-counter');
+            if (counter) {
+                counter.innerText = `📷 ${current + 1}/${imgs.length}`;
+            }
+        }
+
+        // Controle de Quantidade
         function updateQty(id, delta) {
             const current = quantities[id] || 0;
             const updated = Math.max(0, current + delta);
             quantities[id] = updated;
 
-            document.getElementById(`qty-${id}`).value = updated;
+            const input = document.getElementById(`qty-${id}`);
+            if (input) input.value = updated;
             
             const prod = products.find(p => p.id === id);
             const price = updated >= 10 ? prod.priceBulk : prod.priceUnit;
             const subtotal = updated * price;
 
-            document.getElementById(`subtotal-${id}`).innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            const subtotalEl = document.getElementById(`subtotal-${id}`);
+            if (subtotalEl) {
+                subtotalEl.innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            }
+
+            const card = document.getElementById(`card-${id}`);
+            if (card) {
+                if (updated > 0) card.classList.add('has-selected');
+                else card.classList.remove('has-selected');
+            }
 
             calculateTotals();
         }
 
+        // Cálculo dos Totais
         function calculateTotals() {
             let totalItems = 0;
             let totalPrice = 0;
@@ -366,15 +1351,26 @@
                 }
             });
 
-            document.getElementById("total-qty").innerText = `${totalItems} itens selecionados`;
+            document.getElementById("total-qty").innerText = `📦 ${totalItems} ${totalItems === 1 ? 'item' : 'itens'} no pedido`;
             document.getElementById("total-price").innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+
+            const btn = document.getElementById("whatsappButton");
+            if (totalItems > 0) {
+                btn.style.filter = "none";
+                btn.style.opacity = "1";
+            } else {
+                btn.style.opacity = "0.9";
+            }
         }
 
+        // Envio do Pedido via WhatsApp
         function sendWhatsApp() {
-            let message = "*Olá, Artesane Personalizados! Gostaria de fazer um pedido:*%0A%0A";
             let hasItems = false;
             let totalItems = 0;
             let totalPrice = 0;
+
+            let message = "🛍️ *NOVO PEDIDO - ARTESANE 3D PERSONALIZADOS*%0A";
+            message += "══════════════════════════%0A%0A";
 
             products.forEach(prod => {
                 const qty = quantities[prod.id] || 0;
@@ -385,26 +1381,125 @@
                     const subtotal = qty * price;
                     totalPrice += subtotal;
 
-                    const type = qty >= 10 ? "(Atacado)" : "(Avulso)";
-                    message += `• *[${prod.id}] ${prod.name}*%0A   Qtd: ${qty}x R$ ${price.toFixed(2).replace('.', ',')} = R$ ${subtotal.toFixed(2).replace('.', ',')} ${type}%0A%0A`;
+                    const tagPreco = qty >= 10 ? "⭐ (Atacado 10+)" : "(Avulso)";
+                    message += `*Item ${prod.id}* - *${prod.name}*%0A`;
+                    message += `   ➥ Quantidade: *${qty}x*%0A`;
+                    message += `   ➥ Valor Unit.: R$ ${price.toFixed(2).replace('.', ',')} ${tagPreco}%0A`;
+                    message += `   ➥ Subtotal: *R$ ${subtotal.toFixed(2).replace('.', ',')}*%0A%0A`;
                 }
             });
 
             if (!hasItems) {
-                alert("Por favor, selecione pelo menos 1 item antes de enviar o pedido.");
+                alert("Por favor, adicione pelo menos 1 produto com o botão '+' antes de enviar o pedido.");
                 return;
             }
 
-            message += `-----------------------------------%0A`;
-            message += `*Total de Peças:* ${totalItems}%0A`;
-            message += `*Valor Estimado:* R$ ${totalPrice.toFixed(2).replace('.', ',')}%0A%0A`;
-            message += `Poderia me confirmar o prazo de entrega e as opções de personalização?`;
+            message += "══════════════════════════%0A";
+            message += `📦 *Total de Peças:* ${totalItems}%0A`;
+            message += `💰 *Valor Total do Pedido:* R$ ${totalPrice.toFixed(2).replace('.', ',')}%0A%0A`;
+            message += "Olá! Gostaria de confirmar meu pedido acima, saber o prazo de produção e acertar os nomes para personalização. Obrigado! ✨";
 
             const link = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
             window.open(link, "_blank");
         }
 
+        // ==========================================
+        // Modal Lightbox (Visualizador em Alta Resolução)
+        // ==========================================
+        let currentModalProductId = null;
+        let currentModalImgIndex = 0;
+
+        function openModal(prodId) {
+            const prod = products.find(p => p.id === prodId);
+            if (!prod) return;
+
+            currentModalProductId = prodId;
+            currentModalImgIndex = activeImageIndex[prodId] || 0;
+
+            const modal = document.getElementById("imageModal");
+            document.getElementById("modalProductTitle").innerText = `${prod.icon} ${prod.id} - ${prod.name}`;
+
+            updateModalView();
+            modal.classList.add("open");
+            document.body.style.overflow = "hidden"; // trava o scroll do fundo
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            modal.classList.remove("open");
+            document.body.style.overflow = "";
+        }
+
+        function closeModalOnBackdrop(event) {
+            if (event.target.id === "imageModal") {
+                closeModal();
+            }
+        }
+
+        function updateModalView() {
+            const prod = products.find(p => p.id === currentModalProductId);
+            if (!prod) return;
+
+            const imgs = prod.images && prod.images.length > 0 ? prod.images : [`Imagens/${prod.id}.jpg`];
+            const modalImg = document.getElementById("modalImage");
+            modalImg.src = imgs[currentModalImgIndex];
+            modalImg.onerror = () => {
+                modalImg.src = `https://placehold.co/600x450/fef3c7/b45309?text=Item+${prod.id}+Foto+${currentModalImgIndex + 1}`;
+            };
+
+            document.getElementById("modalCounter").innerText = `${currentModalImgIndex + 1} de ${imgs.length}`;
+
+            // Renderizar Miniaturas
+            const thumbContainer = document.getElementById("modalThumbnails");
+            thumbContainer.innerHTML = "";
+            
+            if (imgs.length > 1) {
+                imgs.forEach((src, idx) => {
+                    const thumb = document.createElement("img");
+                    thumb.src = src;
+                    thumb.className = `modal-thumb ${idx === currentModalImgIndex ? 'active' : ''}`;
+                    thumb.onclick = () => {
+                        currentModalImgIndex = idx;
+                        updateModalView();
+                    };
+                    thumb.onerror = () => {
+                        thumb.src = `https://placehold.co/100x100/fef3c7/b45309?text=${idx + 1}`;
+                    };
+                    thumbContainer.appendChild(thumb);
+                });
+            }
+        }
+
+        function nextModalImage() {
+            const prod = products.find(p => p.id === currentModalProductId);
+            if (!prod) return;
+            const imgs = prod.images && prod.images.length > 0 ? prod.images : [`Imagens/${prod.id}.jpg`];
+            currentModalImgIndex = (currentModalImgIndex + 1) % imgs.length;
+            updateModalView();
+        }
+
+        function prevModalImage() {
+            const prod = products.find(p => p.id === currentModalProductId);
+            if (!prod) return;
+            const imgs = prod.images && prod.images.length > 0 ? prod.images : [`Imagens/${prod.id}.jpg`];
+            currentModalImgIndex = (currentModalImgIndex - 1 + imgs.length) % imgs.length;
+            updateModalView();
+        }
+
+        // Teclado para navegação no Modal (ESC fecha, Setas navegam)
+        window.addEventListener('keydown', (e) => {
+            const modal = document.getElementById("imageModal");
+            if (modal.classList.contains("open")) {
+                if (e.key === "Escape") closeModal();
+                if (e.key === "ArrowRight") nextModalImage();
+                if (e.key === "ArrowLeft") prevModalImage();
+            }
+        });
+
+        // Inicializar aplicação
+        setupCategories();
         renderCatalog();
+        calculateTotals();
     </script>
 </body>
 </html>
