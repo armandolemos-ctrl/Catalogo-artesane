@@ -1368,24 +1368,25 @@
             let hasItems = false;
             let totalItems = 0;
             let totalPrice = 0;
+            let itemNum = 0;
 
-            let message = "🛍️ *NOVO PEDIDO - ARTESANE 3D PERSONALIZADOS*\n";
-            message += "══════════════════════════\n\n";
+            // Mensagem compacta para caber na URL do WhatsApp
+            let message = "NOVO PEDIDO - ARTESANE 3D\n";
+            message += "--------------------------\n";
 
             products.forEach(prod => {
                 const qty = quantities[prod.id] || 0;
                 if (qty > 0) {
                     hasItems = true;
+                    itemNum++;
                     totalItems += qty;
                     const price = qty >= 10 ? prod.priceBulk : prod.priceUnit;
                     const subtotal = qty * price;
                     totalPrice += subtotal;
 
-                    const tagPreco = qty >= 10 ? "⭐ (Atacado 10+)" : "(Avulso)";
-                    message += `*Item ${prod.id}* - *${prod.name}*\n`;
-                    message += `   ➥ Quantidade: *${qty}x*\n`;
-                    message += `   ➥ Valor Unit.: R$ ${price.toFixed(2).replace('.', ',')} ${tagPreco}\n`;
-                    message += `   ➥ Subtotal: *R$ ${subtotal.toFixed(2).replace('.', ',')}*\n\n`;
+                    const tagPreco = qty >= 10 ? "[Atacado]" : "[Avulso]";
+                    message += `${itemNum}. ${prod.name}\n`;
+                    message += `   Qtd: ${qty}x | Unit: R$${price.toFixed(2).replace('.', ',')} ${tagPreco} | Sub: R$${subtotal.toFixed(2).replace('.', ',')}\n`;
                 }
             });
 
@@ -1394,14 +1395,39 @@
                 return;
             }
 
-            message += "══════════════════════════\n";
-            message += `📦 *Total de Peças:* ${totalItems}\n`;
-            message += `💰 *Valor Total do Pedido:* R$ ${totalPrice.toFixed(2).replace('.', ',')}\n\n`;
-            message += "Olá! Gostaria de confirmar meu pedido acima, saber o prazo de produção e acertar os nomes para personalização. Obrigado! ✨";
+            message += "--------------------------\n";
+            message += `Total de Pecas: ${totalItems}\n`;
+            message += `TOTAL: R$${totalPrice.toFixed(2).replace('.', ',')}\n\n`;
+            message += "Ola! Gostaria de confirmar o pedido, saber o prazo e combinar os detalhes de personalizacao. Obrigado!";
 
             const encodedMessage = encodeURIComponent(message);
             const link = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`;
-            window.open(link, "_blank");
+
+            // Verifica tamanho da URL (limite ~2000 chars para wa.me)
+            if (link.length > 1900) {
+                // URL muito longa: copia para clipboard e abre WhatsApp sem texto
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(message).then(() => {
+                        alert(
+                            "Seu pedido tem muitos itens!\n\n" +
+                            "O texto do pedido foi COPIADO para sua area de transferencia.\n\n" +
+                            "Agora:\n" +
+                            "1. O WhatsApp sera aberto\n" +
+                            "2. Cole o texto (Ctrl+V) na conversa\n" +
+                            "3. Envie!"
+                        );
+                        window.open(`https://wa.me/${WHATSAPP_PHONE}`, "_blank");
+                    }).catch(() => {
+                        // Fallback: abre mesmo assim com a URL longa
+                        window.open(link, "_blank");
+                    });
+                } else {
+                    // Sem suporte a clipboard, tenta mesmo assim
+                    window.open(link, "_blank");
+                }
+            } else {
+                window.open(link, "_blank");
+            }
         }
 
         // ==========================================
