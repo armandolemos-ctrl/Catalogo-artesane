@@ -1369,8 +1369,8 @@
             let totalItems = 0;
             let totalPrice = 0;
 
-            let message = "🛍️ *NOVO PEDIDO - ARTESANE 3D PERSONALIZADOS*%0A";
-            message += "══════════════════════════%0A%0A";
+            let message = "🛍️ *NOVO PEDIDO - ARTESANE 3D PERSONALIZADOS*\n";
+            message += "══════════════════════════\n\n";
 
             products.forEach(prod => {
                 const qty = quantities[prod.id] || 0;
@@ -1382,10 +1382,10 @@
                     totalPrice += subtotal;
 
                     const tagPreco = qty >= 10 ? "⭐ (Atacado 10+)" : "(Avulso)";
-                    message += `*Item ${prod.id}* - *${prod.name}*%0A`;
-                    message += `   ➥ Quantidade: *${qty}x*%0A`;
-                    message += `   ➥ Valor Unit.: R$ ${price.toFixed(2).replace('.', ',')} ${tagPreco}%0A`;
-                    message += `   ➥ Subtotal: *R$ ${subtotal.toFixed(2).replace('.', ',')}*%0A%0A`;
+                    message += `*Item ${prod.id}* - *${prod.name}*\n`;
+                    message += `   ➥ Quantidade: *${qty}x*\n`;
+                    message += `   ➥ Valor Unit.: R$ ${price.toFixed(2).replace('.', ',')} ${tagPreco}\n`;
+                    message += `   ➥ Subtotal: *R$ ${subtotal.toFixed(2).replace('.', ',')}*\n\n`;
                 }
             });
 
@@ -1394,12 +1394,13 @@
                 return;
             }
 
-            message += "══════════════════════════%0A";
-            message += `📦 *Total de Peças:* ${totalItems}%0A`;
-            message += `💰 *Valor Total do Pedido:* R$ ${totalPrice.toFixed(2).replace('.', ',')}%0A%0A`;
+            message += "══════════════════════════\n";
+            message += `📦 *Total de Peças:* ${totalItems}\n`;
+            message += `💰 *Valor Total do Pedido:* R$ ${totalPrice.toFixed(2).replace('.', ',')}\n\n`;
             message += "Olá! Gostaria de confirmar meu pedido acima, saber o prazo de produção e acertar os nomes para personalização. Obrigado! ✨";
 
-            const link = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
+            const encodedMessage = encodeURIComponent(message);
+            const link = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`;
             window.open(link, "_blank");
         }
 
